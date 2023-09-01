@@ -33,7 +33,7 @@ func BrewInstGit(runner CmdRunner) error {
 
 // Install git credential-osxkeychain. (For storing crediential.)
 
-func cmdGitCredientail(runner CmdRunner) error {
+func CmdGitCredientail(runner CmdRunner) error {
 	cmdContent := "crediential.helpler"
 	cmdGitCrediential := exec.Command("git", "config", "--global", cmdContent, "osxkeychan")
 	return runner.Run(cmdGitCrediential)
@@ -132,6 +132,9 @@ func PlaceToolOnMac() {
 		log.Fatal(err)
 	}
 	if err := BrewInstGit(runner); err != nil {
+		log.Fatal(err)
+	}
+	if err := CmdGitCredientail(runner); err != nil {
 		log.Fatal(err)
 	}
 	if err := BrewInstITerm2(runner); err != nil {
