@@ -19,14 +19,14 @@ func (r *RealCmdRunner) Run(cmd *exec.Cmd) error {
 }
 
 // Check and install "Homebrew" on envirement.
-func installHomebrew(runner CmdRunner) error {
+func InstallHomebrew(runner CmdRunner) error {
 	cmdStr := `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh`
 	cmdInstallHomebrew := exec.Command("/bin/bash", "-c", cmdStr)
 	return runner.Run(cmdInstallHomebrew)
 }
 
 // Brew install git and git CLI. (Let brew package check install or not.)
-func brewInstGit(runner CmdRunner) error {
+func BrewInstGit(runner CmdRunner) error {
 	cmdBrewGit := exec.Command("brew", "install", "git")
 	return runner.Run(cmdBrewGit)
 }
@@ -40,13 +40,13 @@ func cmdGitCredientail(runner CmdRunner) error {
 }
 
 // Install iTerm2
-func brewInstITerm2(runner CmdRunner) error {
+func BrewInstITerm2(runner CmdRunner) error {
 	cmdBrewITerm2 := exec.Command("brew", "install", "--cask", "iterm2")
 	return runner.Run(cmdBrewITerm2)
 }
 
 // Install ZSH.
-func brewInstZSH(runner CmdRunner) error {
+func BrewInstZSH(runner CmdRunner) error {
 	cmdBrewZSH := exec.Command("brew", "install", "zsh")
 	return runner.Run(cmdBrewZSH)
 }
@@ -87,7 +87,7 @@ func rmDir(runner CmdRunner, dir string) error {
 	return runner.Run(cmd)
 }
 
-func placeFonts() {
+func PlaceFonts() {
 	runner := &RealCmdRunner{}
 
 	dir, err := getAvailableDirName("fonts")
@@ -107,7 +107,7 @@ func placeFonts() {
 }
 
 // Install VSCode and code CLI (Issue: how to make sure the VSCode GUI already install.)
-func instVSCode(runner CmdRunner) error {
+func InstVSCode(runner CmdRunner) error {
 	instTarget := `visual-studio-code`
 	cmdInstVSCode := exec.Command("brew", "install", "--cask", instTarget)
 	return runner.Run(cmdInstVSCode)
@@ -128,20 +128,20 @@ func installVSCodeExtension() {
 // Main
 func PlaceToolOnMac() {
 	runner := &RealCmdRunner{}
-	if err := installHomebrew(runner); err != nil {
+	if err := InstallHomebrew(runner); err != nil {
 		log.Fatal(err)
 	}
-	if err := brewInstGit(runner); err != nil {
+	if err := BrewInstGit(runner); err != nil {
 		log.Fatal(err)
 	}
-	if err := brewInstITerm2(runner); err != nil {
+	if err := BrewInstITerm2(runner); err != nil {
 		log.Fatal(err)
 	}
-	if err := brewInstZSH(runner); err != nil {
+	if err := BrewInstZSH(runner); err != nil {
 		log.Fatal(err)
 	}
-	placeFonts()
-	if err := instVSCode(runner); err != nil {
+	PlaceFonts()
+	if err := InstVSCode(runner); err != nil {
 		log.Fatal(err)
 	}
 }
