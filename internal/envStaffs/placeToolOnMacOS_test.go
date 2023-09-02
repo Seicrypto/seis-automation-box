@@ -1,19 +1,9 @@
 package envStaffs_test
 
 import (
-	"os/exec"
 	"seis-automation-box/internal/envStaffs"
 	"testing"
 )
-
-type MockCmdRunner struct {
-	errToReturn error
-}
-
-// Just do mock to test the logic, not succeseed or not in real envirement.
-func (m *MockCmdRunner) Run(cmd *exec.Cmd) error {
-	return m.errToReturn
-}
 
 func TestInstallHomebrew(t *testing.T) {
 	mockRunner := &MockCmdRunner{
@@ -42,7 +32,7 @@ func TestCmdGitCredientail(t *testing.T) {
 		errToReturn: nil,
 	}
 
-	err := envStaffs.CmdGitCredientail(mockRunner)
+	err := envStaffs.CmdGitCredential(mockRunner)
 	if err != nil {
 		t.Fatalf("expected no error, but got: %v", err)
 	}

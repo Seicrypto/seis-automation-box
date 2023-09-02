@@ -8,16 +8,6 @@ import (
 	"os/exec"
 )
 
-type CmdRunner interface {
-	Run(cmd *exec.Cmd) error
-}
-
-type RealCmdRunner struct{}
-
-func (r *RealCmdRunner) Run(cmd *exec.Cmd) error {
-	return cmd.Run()
-}
-
 // Check and install "Homebrew" on envirement.
 func InstallHomebrew(runner CmdRunner) error {
 	cmdStr := `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh`
@@ -33,8 +23,8 @@ func BrewInstGit(runner CmdRunner) error {
 
 // Install git credential-osxkeychain. (For storing crediential.)
 
-func CmdGitCredientail(runner CmdRunner) error {
-	cmdContent := "crediential.helpler"
+func CmdGitCredential(runner CmdRunner) error {
+	cmdContent := "credential.helpler"
 	cmdGitCrediential := exec.Command("git", "config", "--global", cmdContent, "osxkeychan")
 	return runner.Run(cmdGitCrediential)
 }
@@ -113,18 +103,6 @@ func InstVSCode(runner CmdRunner) error {
 	return runner.Run(cmdInstVSCode)
 }
 
-// Install VSCode extensions.
-func installVSCodeExtension() {
-	// Install extension:
-	// 1. Ayu theme
-	// 2. Markdown lint / preview
-	// 3. Markdown mermaid preview
-	// 4. Prettier -Code formatter
-	// 5. Material Icon
-	// 6. Git Graph
-
-}
-
 // Main
 func PlaceToolOnMac() {
 	runner := &RealCmdRunner{}
@@ -134,7 +112,7 @@ func PlaceToolOnMac() {
 	if err := BrewInstGit(runner); err != nil {
 		log.Fatal(err)
 	}
-	if err := CmdGitCredientail(runner); err != nil {
+	if err := CmdGitCredential(runner); err != nil {
 		log.Fatal(err)
 	}
 	if err := BrewInstITerm2(runner); err != nil {
