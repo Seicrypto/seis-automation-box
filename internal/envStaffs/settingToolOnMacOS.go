@@ -1,6 +1,19 @@
 package envStaffs
 
-// Set up gitconfig
+import (
+	"fmt"
+	"os/exec"
+)
+
+// Set up gitconfig:
+// global username
+func GitConfigUserName(runner CmdRunner, userName string) error {
+	cmdGitUserName := `user.name`
+	cmdGitUserNameContent := fmt.Sprintf(`"%s"`, userName)
+	gitConfigUserName := exec.Command("git", "config", "--global", cmdGitUserName, cmdGitUserNameContent)
+	return runner.Run(gitConfigUserName)
+}
+
 func setGitconfig() {
 	// Set up gitconfig.username
 
@@ -19,14 +32,7 @@ func setZSHrc() {
 
 }
 
-// Set up VSCode json setting.
-func setVSCodeJson() {
-	// Set ZSH as default terminal.
-	// Set up fonts and size.
-}
-
 func SettingToolOnMacOS() {
 	setGitconfig()
 	setZSHrc()
-	setVSCodeJson()
 }
