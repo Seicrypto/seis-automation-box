@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
+	"os"
 	"runtime"
-	"seis-automation-box/internal/errorHandle"
 )
 
 func CurrentDevice() string {
@@ -16,7 +16,8 @@ func CurrentDevice() string {
 	case "windows":
 		fmt.Println("Now is preparing Seis-automation-box for your Windows device...")
 	default:
-		errorHandle.ExitWithError("Sorry, Seis-automation-box currently only support macOS, and Windows.")
+		fmt.Println("Error: Sorry, Seis-automation-box currently only support macOS, and Windows.")
+		os.Exit(1)
 	}
 	return userDevice
 }
