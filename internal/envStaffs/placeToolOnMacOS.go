@@ -22,7 +22,6 @@ func BrewInstGit(runner CmdRunner) error {
 }
 
 // Install git credential-osxkeychain. (For storing crediential.)
-
 func CmdGitCredential(runner CmdRunner) error {
 	cmdContent := "credential.helpler"
 	cmdGitCrediential := exec.Command("git", "config", "--global", cmdContent, "osxkeychan")

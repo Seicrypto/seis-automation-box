@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"os"
+	"seis-automation-box/internal/envStaffs"
 )
 
 func InstRunner(system string) {
@@ -11,6 +12,7 @@ func InstRunner(system string) {
 	case "darwin":
 		// darwin is macOS.
 		fmt.Println("Now is preparing Seis-automation-box for your Mac device...")
+		envStaffs.PlaceToolOnMac()
 	case "linux":
 		fmt.Println("Now is preparing Seis-automation-box for your Linux device...")
 	case "windows":
