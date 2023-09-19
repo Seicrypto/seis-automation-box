@@ -15,13 +15,69 @@ Before running the executable, please update the contents of the config files to
 }
 ```
 
+Currently, seis-automation-box would build:
+
+### Mac
+
+- Homebrew
+- Git
+- ITerm2
+- ZSH
+- Fonts
+
+### Linux
+
+- Update apt and apt-get
+- Git
+
+### Windows
+
+- Windows Terminal from git
+
 **option** **Inst**
 
 optionInst.json is a list of all optional features. Set the ones you'd like to install to true.
 
+How it judge:
+
+```mermaid
+flowchart TB
+%% Initiation
+    list[Check 'true' config option]
+    nameflow1[Directory Name]
+    nameflow2[File Name]
+    nameflow3[Function Name]
+%% Relation
+    list-->nameflow1
+    subgraph option feature name flow
+    nameflow1-->nameflow2
+    nameflow2-->nameflow3
+    end
+```
+
 ```json
 {
-    "feature1": "bool",
-    "feature2": "bool"
+    "Directory1":
+    {
+        "Filename/Funcname": true/false,
+        "Filename/Funcname": true/false
+    },
+    "Directory2":
+    {
+        "Filename/Funcname": true/false,
+        "Filename/Funcname": true/false
+    }
 }
 ```
+
+For example, the vscode option:
+
+```json
+{
+    "vscode": {
+        "InstThevscode": true
+    }
+}
+```
+
+which means, it will run 'Thevscode' func located in 'internal/optionalFeatures/vscode/Inst.go' File.

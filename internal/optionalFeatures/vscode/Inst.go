@@ -1,6 +1,16 @@
-package envStaffs
+package vscode
 
 import "os/exec"
+
+type CmdRunner interface {
+	Run(cmd *exec.Cmd) error
+}
+
+type RealCmdRunner struct{}
+
+func (r *RealCmdRunner) Run(cmd *exec.Cmd) error {
+	return cmd.Run()
+}
 
 // This part is going to establish in new repo with bash and powershell.
 // Install VSCode extensions.
@@ -28,4 +38,8 @@ func InstVSCodeAyu(runner CmdRunner) error {
 	exAyu := `teabyii.ayu`
 	instVSCodeExAyu := exec.Command("code", cmdOp, exAyu)
 	return runner.Run(instVSCodeExAyu)
+}
+
+func Main() {
+
 }

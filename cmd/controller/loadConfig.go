@@ -8,13 +8,13 @@ import (
 
 type UserConfig map[string]string
 
-type FeaturesConfig map[string]bool
+type OptionConfig map[string]map[string]bool
 
-func LoadConfigJSON() (UserConfig, FeaturesConfig) {
+func LoadEssentialInfoConfig() UserConfig {
+
 	var essential UserConfig
-	var option FeaturesConfig
 
-	essentialBytes, err := os.ReadFile("../../configs/essentialInfo.json")
+	essentialBytes, err := os.ReadFile("./configs/essentialInfo.json")
 	if err != nil {
 		fmt.Println("Error reading essentialInfo.json:", err)
 		os.Exit(1)
@@ -25,7 +25,14 @@ func LoadConfigJSON() (UserConfig, FeaturesConfig) {
 		os.Exit(1)
 	}
 
-	optionBytes, err := os.ReadFile("../../configs/optionInst.json")
+	return essential
+}
+
+func LoadOptionConfig() OptionConfig {
+
+	var option OptionConfig
+
+	optionBytes, err := os.ReadFile("./configs/option.json")
 	if err != nil {
 		fmt.Println("Error reading optionInst.json:", err)
 		os.Exit(1)
@@ -35,5 +42,6 @@ func LoadConfigJSON() (UserConfig, FeaturesConfig) {
 		fmt.Printf("Error unmarshalling essentialInfo.json: %v\n", err)
 		os.Exit(1)
 	}
-	return essential, option
+
+	return option
 }
