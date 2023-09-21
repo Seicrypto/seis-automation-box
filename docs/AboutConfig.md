@@ -21,17 +21,21 @@ Currently, seis-automation-box would build:
 
 - Homebrew
 - Git
+- Git Credential
 - ITerm2
 - ZSH
-- Fonts
 
 ### Linux
 
 - Update apt and apt-get
 - Git
+- Git Credential
 
 ### Windows
 
+- Winget
+- Git
+- Git Credential
 - Windows Terminal from git
 
 **option** **Inst**
@@ -81,3 +85,5 @@ For example, the vscode option:
 ```
 
 which means, it will run 'Thevscode' func located in 'internal/optionalFeatures/vscode/Inst.go' File.
+
+Please follow upper camel case.

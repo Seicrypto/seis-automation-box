@@ -121,7 +121,4 @@ func PlaceToolOnMac() {
 		log.Fatal(err)
 	}
 	PlaceFonts()
-	if err := InstVSCode(runner); err != nil {
-		log.Fatal(err)
-	}
 }

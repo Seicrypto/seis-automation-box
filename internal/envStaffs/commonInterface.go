@@ -20,11 +20,11 @@ func (r *RealCmdRunner) Run(cmd *exec.Cmd) error {
 // Load essentailInfo.json.
 type UserConfig map[string]string
 
-func LoadEssentialInfoConfig() UserConfig {
+func LoadEssentialInfoConfig(essentailInfoPath string) UserConfig {
 
 	var essential UserConfig
 
-	essentialBytes, err := os.ReadFile("./configs/essentialInfo.json")
+	essentialBytes, err := os.ReadFile(essentailInfoPath)
 	if err != nil {
 		fmt.Println("Error reading essentialInfo.json:", err)
 		os.Exit(1)
