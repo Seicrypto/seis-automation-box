@@ -15,6 +15,19 @@ func InstallHomebrew(runner CmdRunner) error {
 	return runner.Run(cmdInstallHomebrew)
 }
 
+// On Apple Silicon machines, there's one more step.
+func SetBrewTozprofile(runner CmdRunner) error {
+	cmdStr := `echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile`
+	cmdEchoevalbrew := exec.Command("/bin/bash", "-c", cmdStr)
+	return runner.Run(cmdEchoevalbrew)
+}
+
+func EvalBrew(runner CmdRunner) error {
+	cmdStr := `eval "$(/opt/homebrew/bin/brew shellenv)"`
+	cmdEvalbrew := exec.Command("/bin/bash", "-c", cmdStr)
+	return runner.Run(cmdEvalbrew)
+}
+
 // Brew install git and git CLI. (Let brew package check install or not.)
 func BrewInstGit(runner CmdRunner) error {
 	cmdBrewGit := exec.Command("brew", "install", "git")
@@ -108,6 +121,14 @@ func PlaceToolOnMac() {
 	if err := InstallHomebrew(runner); err != nil {
 		log.Fatal(err)
 	}
+	// Set up 'brew' to $PATH.
+	if err := SetBrewTozprofile(runner); err != nil {
+		log.Fatal(err)
+	}
+	if err := EvalBrew(runner); err != nil {
+		log.Fatal(err)
+	}
+
 	if err := BrewInstGit(runner); err != nil {
 		log.Fatal(err)
 	}
@@ -120,5 +141,4 @@ func PlaceToolOnMac() {
 	if err := BrewInstZSH(runner); err != nil {
 		log.Fatal(err)
 	}
-	PlaceFonts()
 }

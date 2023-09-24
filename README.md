@@ -16,3 +16,17 @@ Open the config folder, and edit it. For example:
     "userEmail": "xxxxx@gmail.com"
 }
 ```
+
+Then execute the executing file, according your os:
+
+### Mac
+
+Run the command down below in terminal:
+
+```bash
+bash ~/Downloads/seis-automation-box/MacOSExecMeByTerminal.sh
+```
+
+### Windows
+
+### Linux

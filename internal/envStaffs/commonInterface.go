@@ -14,6 +14,9 @@ type CmdRunner interface {
 type RealCmdRunner struct{}
 
 func (r *RealCmdRunner) Run(cmd *exec.Cmd) error {
+	cmd.Stdin = os.Stdin   // Let command stdin as go project stdin
+	cmd.Stdout = os.Stdout // Let command stdout as go project stdout
+	cmd.Stderr = os.Stderr // Let command stderr as go project stderr
 	return cmd.Run()
 }
 

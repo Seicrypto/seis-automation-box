@@ -3,7 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 	"regexp"
 	"seis-automation-box/internal/envStaffs"
 )
@@ -63,16 +65,38 @@ func optionSettingCheck(settingFilePath string) error {
 	if !valid {
 		return fmt.Errorf("Invalid option config")
 	}
-
+	// Verify optional feature funcs equal option setting map.
+	// Haven't build.
 	return nil
 }
 
+// Get the executing path.
+func execPath() string {
+	exePath, err := os.Executable()
+	if err != nil {
+		log.Fatalf("Failed to get executable path: %v", err)
+	}
+	exeDir := filepath.Dir(exePath)
+	return exeDir
+}
+
+// Plus the configs path.
+func essentialInfoConfigPath() string {
+	configPath := filepath.Join(execPath(), "configs", "essentialInfo.json")
+	return configPath
+}
+
+func optionConfigPath() string {
+	configPath := filepath.Join(execPath(), "configs", "option.json")
+	return configPath
+}
+
 func ValidateConfig() {
-	if err := essentialSettingCheck("./configs/essentialInfo.json"); err != nil {
+	if err := essentialSettingCheck(essentialInfoConfigPath()); err != nil {
 		fmt.Fprintf(os.Stderr, "EssentialInfo configuration file validation fails: %v\n", err)
 		os.Exit(1)
 	}
-	if err := optionSettingCheck("./configs/option.json"); err != nil {
+	if err := optionSettingCheck(optionConfigPath()); err != nil {
 		fmt.Fprintf(os.Stderr, "Option configuration file validation fails: %v\n", err)
 		os.Exit(1)
 	}
